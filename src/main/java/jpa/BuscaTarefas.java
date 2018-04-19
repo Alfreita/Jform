@@ -34,6 +34,8 @@ public class BuscaTarefas {
     }
 
         manager.close();
+
+        factory.close();
     // }
         return lista;
 }

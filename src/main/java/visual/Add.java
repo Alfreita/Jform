@@ -1,25 +1,18 @@
-package Login;
+package visual;
+
+import jpa.AdicionaTarefa;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import jpa.*;
-import tarefas.Tarefa;
-
-public class Login extends JDialog {
-
-    BuscaTarefas busca=new BuscaTarefas();
-    Add add =new Add();
+public class Add extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextArea textArea;
-    private JButton addTarefaButton;
+    private JTextField txtR;
 
-
-    public Login() {
+    AdicionaTarefa add = new AdicionaTarefa();
+    public Add() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -33,12 +26,6 @@ public class Login extends JDialog {
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
-            }
-        });
-
-        addTarefaButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ch();
             }
         });
 
@@ -58,33 +45,21 @@ public class Login extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void ch(){
-        add.setVisible(true);
-    }
-
     private void onOK() {
-        textArea.setText(" ");
-       List<Tarefa> ret= new ArrayList<Tarefa>();
-
         // add your code here
-      //  dispose();
-        ret=busca.bb();
-        for (Tarefa r :ret){
-            textArea.append(r.getId() + "  " + r.getDescricao()+ " \n");
-            textArea.setLineWrap(true);
-            textArea.getAutoscrolls();
-            System.out.println(" ");
+       // dispose();
+        add.add(txtR.getText());
 
-        }
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
+
     }
 
     public static void main(String[] args) {
-        Login dialog = new Login();
+        Add dialog = new Add();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);

@@ -31,5 +31,7 @@ public class AdicionaTarefa {
             System.out.println("ID da tarefa: " + tarefa.getId());
 
             manager.close();
+
+            factory.close();
         }
 }

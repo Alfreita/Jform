@@ -1,18 +1,25 @@
-package Login;
-
-import jpa.AdicionaTarefa;
+package visual;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Add extends JDialog {
+import jpa.*;
+import tarefas.Tarefa;
+
+public class Login extends JDialog {
+
+    BuscaTarefas busca=new BuscaTarefas();
+    Add add =new Add();
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JTextField txtR;
+    private JTextArea textArea;
+    private JButton addTarefaButton;
 
-    AdicionaTarefa add = new AdicionaTarefa();
-    public Add() {
+
+    public Login() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -26,6 +33,12 @@ public class Add extends JDialog {
         buttonCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
+            }
+        });
+
+        addTarefaButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ch();
             }
         });
 
@@ -45,21 +58,33 @@ public class Add extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK() {
-        // add your code here
-       // dispose();
-        add.add(txtR.getText());
+    private void ch(){
+        add.setVisible(true);
+    }
 
+    private void onOK() {
+        textArea.setText(" ");
+       List<Tarefa> ret= new ArrayList<Tarefa>();
+
+        // add your code here
+      //  dispose();
+        ret=busca.bb();
+        for (Tarefa r :ret){
+            textArea.append(r.getId() + "  " + r.getDescricao()+ " \n");
+            textArea.setLineWrap(true);
+            textArea.getAutoscrolls();
+            System.out.println(" ");
+
+        }
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
-
     }
 
     public static void main(String[] args) {
-        Add dialog = new Add();
+        Login dialog = new Login();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
